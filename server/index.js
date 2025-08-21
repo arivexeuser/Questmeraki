@@ -12,7 +12,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: ['https://questmeraki.vercel.app','https://questmeraki.com','https://www.questmeraki.com'],
+  origin: ['http://localhost:5173','https://questmeraki.netlify.app'],
   methods: ['GET', 'POST', 'PUT', 'DELETE','PATCH', 'OPTIONS'],
   credentials: true,
 }));

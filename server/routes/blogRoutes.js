@@ -116,25 +116,41 @@ router.patch('/:id/status', auth, async (req, res) => {
 // Delete blog
 router.delete('/:id', auth, async (req, res) => {
   try {
-    const blog = await Blog.findById(req.params.id);
-    
+    const blogId = req.params.id;
+    console.log("Deleting blog:", blogId);
+
+    // Validate ID
+    if (!blogId.match(/^[0-9a-fA-F]{24}$/)) {
+      return res.status(400).json({ error: "Invalid blog ID" });
+    }
+
+    const blog = await Blog.findById(blogId);
     if (!blog) {
       return res.status(404).json({ error: 'Blog not found' });
+    }
+
+    if (!req.user) {
+      return res.status(401).json({ error: 'User not authenticated' });
     }
 
     if (blog.author.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
       return res.status(403).json({ error: 'Not authorized' });
     }
 
-    // Delete image from Cloudinary
-    await cloudinary.uploader.destroy(blog.cloudinaryId);
-    
+    // Only try to delete from Cloudinary if ID exists
+    if (blog.cloudinaryId) {
+      await cloudinary.uploader.destroy(blog.cloudinaryId);
+    }
+
     await blog.deleteOne();
     res.json({ message: 'Blog deleted successfully' });
+
   } catch (error) {
-    res.status(500).json({ error: 'Error deleting blog' });
+    console.error("Error deleting blog:", error);
+    res.status(500).json({ error: 'Error deleting blog', details: error.message });
   }
 });
+
 
 // Get blog by ID
 
@@ -156,37 +172,39 @@ router.get('/u/:id',  async (req, res) => {
 router.put('/:id', auth, upload.single('image'), async (req, res) => {
   try {
     const { title, content, category } = req.body;
+    console.log('Updating blog with ID:', req.params.id);
+
     const blog = await Blog.findById(req.params.id);
-    
     if (!blog) {
       return res.status(404).json({ error: 'Blog post not found' });
     }
 
-    // Check if user is admin or the author of the post
+    // Check permissions
     if (req.user.role !== 'admin' && blog.author.toString() !== req.user._id.toString()) {
       return res.status(403).json({ error: 'Not authorized to edit this post' });
     }
 
     let imageUrl = blog.imageUrl;
+    let cloudinaryId = blog.cloudinaryId;
 
-    // Handle image upload if new image is provided
+    // If new image is provided
     if (req.file) {
       try {
         // Delete old image from Cloudinary if it exists
-        if (blog.imageUrl) {
-          const publicId = blog.imageUrl.split('/').pop().split('.')[0];
-          await cloudinary.uploader.destroy(publicId);
+        if (cloudinaryId) {
+          await cloudinary.uploader.destroy(cloudinaryId);
         }
 
-        // Upload new image
-        const result = await cloudinary.uploader.upload(req.file.path, {
-          folder: 'blog-images',
-          transformation: [
-            { width: 800, height: 600, crop: 'fill' },
-            { quality: 'auto' }
-          ]
+        // Convert buffer to base64 and upload
+        const b64 = Buffer.from(req.file.buffer).toString('base64');
+        const dataURI = `data:${req.file.mimetype};base64,${b64}`;
+        const result = await cloudinary.uploader.upload(dataURI, {
+          folder: 'blog_images',
+          resource_type: 'auto'
         });
+
         imageUrl = result.secure_url;
+        cloudinaryId = result.public_id;
       } catch (uploadError) {
         console.error('Image upload error:', uploadError);
         return res.status(400).json({ error: 'Failed to upload image' });
@@ -200,6 +218,7 @@ router.put('/:id', auth, upload.single('image'), async (req, res) => {
         content,
         category,
         imageUrl,
+        cloudinaryId,
         excerpt: content.replace(/<[^>]*>/g, '').substring(0, 150) + '...',
         updatedAt: Date.now()
       },
@@ -208,9 +227,11 @@ router.put('/:id', auth, upload.single('image'), async (req, res) => {
 
     res.json(updatedBlog);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.error('Update blog error:', error);
+    res.status(500).json({ error: error.message });
   }
 });
+
 
 // get blog download by id
 router.get('/download/:id', async (req, res) => {
