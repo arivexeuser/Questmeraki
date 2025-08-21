@@ -56,33 +56,19 @@ export default function About() {
 
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 text-white py-20">
+      <section
+        className="bg-cover bg-center text-white py-20"
+        style={{ backgroundImage: "url('https://res.cloudinary.com/dczicfhcv/image/upload/v1755585786/About_us_1_g1vwlf.png')" }}
+      >
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl font-bold mb-6 animate-fade-in">
               About <span className="text-yellow-300">QuestMeraki</span>
             </h1>
-            <p className="text-xl mb-8 opacity-90 leading-relaxed">
-              Where passion meets storytelling. We're a community-driven platform dedicated to
-              empowering writers and connecting readers with extraordinary stories.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <div className="bg-white/20 backdrop-blur-sm rounded-lg px-6 py-3">
-                <div className="text-2xl font-bold">10K+</div>
-                <div className="text-sm opacity-80">Stories Published</div>
-              </div>
-              <div className="bg-white/20 backdrop-blur-sm rounded-lg px-6 py-3">
-                <div className="text-2xl font-bold">5K+</div>
-                <div className="text-sm opacity-80">Active Writers</div>
-              </div>
-              <div className="bg-white/20 backdrop-blur-sm rounded-lg px-6 py-3">
-                <div className="text-2xl font-bold">50K+</div>
-                <div className="text-sm opacity-80">Monthly Readers</div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
+
 
       {/* Story Section */}
       <section className="py-16 bg-white">

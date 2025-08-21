@@ -40,18 +40,7 @@ export default function Contact() {
       details: 'info@questmeraki.com ',
       description: 'Send us an email and we\'ll respond within 24 hours'
     },
-    {
-      icon: <Phone className="w-6 h-6" />,
-      title: 'Call Us',
-      details: '0000000000000',
-      description: 'Mon-Fri from 9am to 6pm '
-    },
-    {
-      icon: <MapPin className="w-6 h-6" />,
-      title: 'Visit Us',
-      details: '........',
-      description: '.........'
-    }
+
   ];
 
   const faqs = [
@@ -82,25 +71,36 @@ export default function Contact() {
           <h1 className="text-5xl font-bold mb-6">
             Get in <span className="text-yellow-300">Touch</span>
           </h1> */}
-          {/* Optional Paragraph */}
-          {/* <p className="text-xl mb-8 opacity-90 leading-relaxed">
+      {/* Optional Paragraph */}
+      {/* <p className="text-xl mb-8 opacity-90 leading-relaxed">
             Have questions, suggestions, or just want to say hello? We'd love to hear from you.
             Our team is here to help you make the most of your QuestMeraki experience.
           </p> */}
-        {/* </div>
+      {/* </div>
       </section> */}
 
 
 
       {/*Contact Us */}
-      <section className="py-6 px-10 bg-white">
-        
-          <div className="max-w-6xl mx-auto text-center mb-6">
-            <span className="text-3xl font-bold bg-gradient-to-r from-sky-400 to-violet-500 bg-clip-text text-transparent animate-pulse">
-              Contact Us
-            </span>
+      <section
+        className="bg-cover bg-center text-white py-20"
+        style={{ backgroundImage: "url('https://res.cloudinary.com/dczicfhcv/image/upload/v1755585789/Contact_us_1_urvxzg.png')" }}
+      >
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+           
           </div>
-        
+        </div>
+      </section>
+
+      <section className="py-6 px-10 bg-white">
+
+        <div className="max-w-6xl mx-auto text-center mb-6">
+          <span className="text-3xl font-bold bg-gradient-to-r from-sky-400 to-violet-500 bg-clip-text text-transparent animate-pulse">
+            Contact Us
+          </span>
+        </div>
+
       </section>
 
 
@@ -118,7 +118,7 @@ export default function Contact() {
         </div>
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-3 gap-8">
+            {/* <div className="grid md:grid-cols-3 gap-8">
               {contactInfo.map((info, index) => (
                 <div key={index} className="bg-white rounded-xl shadow-lg p-8 text-center hover:shadow-xl transition-shadow duration-300">
                   <div className="bg-indigo-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
@@ -131,7 +131,7 @@ export default function Contact() {
                   <p className="text-gray-600 text-sm">{info.description}</p>
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
         </div>
       </section>

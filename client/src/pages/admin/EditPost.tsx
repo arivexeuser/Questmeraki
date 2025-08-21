@@ -263,12 +263,11 @@ export default function EditPost() {
                     required
                   >
                     <option value="">Select a category</option>
-                    <option value="Technology">Technology</option>
-                    <option value="Travel">Travel</option>
-                    <option value="Food">Food</option>
-                    <option value="Lifestyle">Lifestyle</option>
-                    <option value="Health">Health & Wellness</option>
-                    <option value="Business">Business</option>
+                    <option value="palms of his hands">Palms Of His Hands</option>
+                    <option value="perspective">Perspective</option>
+                    <option value="questionnaires">Questionnaires</option>
+                    <option value="ideating zone">Ideating Zone</option>
+                    <option value="others">Others</option>
                   </select>
                 </div>
               </div>
