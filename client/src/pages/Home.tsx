@@ -522,26 +522,7 @@ export default function Home() {
                 style={{ backgroundImage: `url(${image})` }}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent"></div>
-                {/* <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center text-white max-w-4xl px-6">
-                    <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-                      Discover Amazing
-                      <span className="block bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-                        Stories
-                      </span>
-                    </h1>
-                    <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-2xl mx-auto">
-                      Explore insights, inspiration, and ideas that matter
-                    </p>
-                    <Link
-                      to="/blogs"
-                      className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 shadow-2xl hover:shadow-3xl hover:-translate-y-1 group"
-                    >
-                      Explore All Stories
-                      <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                    </Link>
-                  </div>
-                </div> */}
+                
               </div>
             </SwiperSlide>
           ))}
