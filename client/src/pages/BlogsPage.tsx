@@ -46,7 +46,7 @@ export default function BlogsPage() {
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
-  const categories = ["All", "Palms of his Hands", "Perspective", "Questionnaires", "Ideating zone",'others'];
+  const categories = ["All", "Palms of his Hands", "Perspective", "Questionnaires", "Ideating zone", 'others'];
 
   // Handle navigation state on component mount
   useEffect(() => {
@@ -56,7 +56,7 @@ export default function BlogsPage() {
       // Clear the navigation state to avoid issues with browser back/forward
       window.history.replaceState({}, document.title);
     }
-    
+
     // Also check URL parameters as fallback
     const urlParams = new URLSearchParams(location.search);
     const categoryParam = urlParams.get('category');
@@ -78,12 +78,12 @@ export default function BlogsPage() {
   }, [selectedMonth, selectedYear, selectedCategory, searchTerm, sortBy]);
 
   useEffect(() => {
-  // Scroll to top when page changes
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth' // Optional: adds smooth scrolling
-  });
-}, [currentPage]);
+    // Scroll to top when page changes
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // Optional: adds smooth scrolling
+    });
+  }, [currentPage]);
 
   const fetchBlogs = async () => {
     try {
@@ -189,54 +189,54 @@ export default function BlogsPage() {
       return rangeWithDots;
     };
 
-return (
-  <div className="flex items-center justify-center mt-12 space-x-2">
-    {/* Previous Button */}
-    <button
-      onClick={() => {
-        setCurrentPage(prev => Math.max(prev - 1, 1));
-      }}
-      disabled={currentPage === 1}
-      className="flex items-center px-4 py-2 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:shadow-md group"
-    >
-      <ChevronLeft className="w-4 h-4 mr-1 group-hover:-translate-x-1 transition-transform" />
-      Previous
-    </button>
+    return (
+      <div className="flex items-center justify-center mt-12 space-x-2">
+        {/* Previous Button */}
+        <button
+          onClick={() => {
+            setCurrentPage(prev => Math.max(prev - 1, 1));
+          }}
+          disabled={currentPage === 1}
+          className="flex items-center px-4 py-2 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:shadow-md group"
+        >
+          <ChevronLeft className="w-4 h-4 mr-1 group-hover:-translate-x-1 transition-transform" />
+          Previous
+        </button>
 
-    {/* Page Numbers */}
-    {getVisiblePages().map((page, idx) => (
-      <button
-        key={idx}
-        onClick={() => {
-          if (typeof page === 'number') {
-            setCurrentPage(page);
-          }
-        }}
-        disabled={page === '...'}
-        className={`min-w-[40px] h-10 rounded-xl font-medium transition-all duration-300 ${currentPage === page
-          ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg transform scale-105'
-          : page === '...'
-            ? 'bg-transparent text-gray-400 cursor-default'
-            : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 hover:shadow-md hover:scale-105'
-          }`}
-      >
-        {page}
-      </button>
-    ))}
+        {/* Page Numbers */}
+        {getVisiblePages().map((page, idx) => (
+          <button
+            key={idx}
+            onClick={() => {
+              if (typeof page === 'number') {
+                setCurrentPage(page);
+              }
+            }}
+            disabled={page === '...'}
+            className={`min-w-[40px] h-10 rounded-xl font-medium transition-all duration-300 ${currentPage === page
+              ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg transform scale-105'
+              : page === '...'
+                ? 'bg-transparent text-gray-400 cursor-default'
+                : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 hover:shadow-md hover:scale-105'
+              }`}
+          >
+            {page}
+          </button>
+        ))}
 
-    {/* Next Button */}
-    <button
-      onClick={() => {
-        setCurrentPage(prev => Math.min(prev + 1, totalPages));
-      }}
-      disabled={currentPage === totalPages}
-      className="flex items-center px-4 py-2 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:shadow-md group"
-    >
-      Next
-      <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-    </button>
-  </div>
-);
+        {/* Next Button */}
+        <button
+          onClick={() => {
+            setCurrentPage(prev => Math.min(prev + 1, totalPages));
+          }}
+          disabled={currentPage === totalPages}
+          className="flex items-center px-4 py-2 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:shadow-md group"
+        >
+          Next
+          <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+        </button>
+      </div>
+    );
   };
 
   const downloadBlogAsPDF = async (blog: Blog) => {
@@ -454,10 +454,10 @@ return (
     setSelectedCategory(category);
     setSelectedMonth('');
     setSelectedYear(new Date().getFullYear());
-    
+
     // Update URL to reflect the category selection
-    const newUrl = category === 'All' 
-      ? '/blogs' 
+    const newUrl = category === 'All'
+      ? '/blogs'
       : `/blogs?category=${encodeURIComponent(category)}`;
     window.history.pushState(null, '', newUrl);
   };
@@ -468,7 +468,7 @@ return (
     setSelectedYear(new Date().getFullYear());
     setSearchTerm('');
     setSortBy('newest');
-    
+
     // Clear URL parameters
     window.history.pushState(null, '', '/blogs');
   };
@@ -495,7 +495,16 @@ return (
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50  via-white to-purple-50  ">
+      <section
+        className="bg-cover bg-center text-white py-20 "
+        style={{ backgroundImage: "url('https://res.cloudinary.com/dczicfhcv/image/upload/v1755585792/Blogs_2_eyg5fn.png')" }}
+      >
+        <div className="container mx-auto px-4">
+
+        </div>
+      </section>
       <div className="container mx-auto px-5 ">
+
 
 
         {/* Search and Filters */}
